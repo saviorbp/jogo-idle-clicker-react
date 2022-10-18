@@ -1,6 +1,7 @@
 import "./acoes.css";
 
 export default function Acoes(props) {
+    const transacoes = props.transacoes;
   return (
     <section className="Acoes">
       <Acao
@@ -18,20 +19,31 @@ export default function Acoes(props) {
         ]}
         handleClick={props.handleClick}
       />
+      <Acao id="construirBtn" 
+        nome="Construir casa" 
+        trocas={transacoes.construir} 
+        handleClick={props.handleClick} 
+      />
+      <Acao id="contratarLenhadorBtn" 
+        nome="Contratar lenhador" 
+        trocas={transacoes.contratarLenhador} 
+        handleClick={props.handleClick} 
+      />
     </section>
   );
 }
 
 function Acao(props) {
   const trocas = props.trocas;
+  const paresTrocas = Object.entries(trocas);
   const listaTrocas = [];
   let i = 0;
 
-  for (const troca of trocas) {
+  for (const troca of paresTrocas) {
     let texto = "";
-    const recurso = troca.recurso;
-    const valor = troca.valor;
-
+    const recurso = troca[0];
+    const valor = troca[1];
+    
     // Adiciona sinal de + para valores positivos
 
     if (valor > 0) {
